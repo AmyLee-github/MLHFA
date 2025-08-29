@@ -1,0 +1,8 @@
+numpy==1.26.4
+opencv-python==4.9.0.80
+opencv-python-headless==4.9.0.80
+Pillow==9.0.1
+scipy==1.12.0
+torch==2.1.2
+torchmetrics==1.2.1
+torchvision==0.16.2
