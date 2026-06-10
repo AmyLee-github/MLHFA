@@ -1,0 +1,1 @@
+python -W ignore train_val.py | tee "/hexp/ly/MLHFA/log/train.txt"

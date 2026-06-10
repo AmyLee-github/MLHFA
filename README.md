@@ -5,6 +5,8 @@ This is the official code implementation of the paper:
 
 Yi Li, Xiping He, Dan He, Xiaoqin Xie, Xuyuan Liu, Xin Liu
 
+https://doi.org/10.1016/j.jvcir.2026.104788
+
 ---
 
 ## 📖 Introduction
@@ -30,6 +32,7 @@ Follow these steps to set up the project:
 ---
 ## 🗂️ Datasets
 We conducted training and testing on the [GenImage](https://github.com/GenImage-Dataset/GenImage) dataset, which is a general-purpose deepfake detection dataset containing various novel deepfake generation methods.
+
 
 ---
 

@@ -11,10 +11,12 @@ class MLHFA(nn.Module):
     def __init__(self, pretrain=True):
         super().__init__()
         # 初始化模型组件
-        self.cam = None  # CrossAttention 模块
-        self.se = None   # SEAttention 模块
-        self.srm = None  # SRMConv2d_simple 模块
-        self.disc = None # ResNet50 模块
+        self.cam = CrossAttention(num_channels=3, num_heads=1)
+        self.se = SEAttention(channel=3,reduction=3)
+        self.srm = SRMConv2d_simple()
+        self.disc = resnet50(pretrained=True)
+        self.disc.conv1 = nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3, bias=False)
+        self.disc.fc = nn.Linear(2048, 1)
 
     def forward(self, x_f, x_p):
         """
@@ -23,8 +25,12 @@ class MLHFA(nn.Module):
         :param x_p: 图像输入
         :return: 模型输出
         """
-        # 省略具体实现
-        pass
+        x_f_p = self.cam(x_f, x_p)
+        x = self.se(x_f_p)
+        x = F.interpolate(x, (256, 256), mode='bilinear')
+        x = self.srm(x)
+        x = self.disc(x)
+        return x
 
 
 if __name__ == '__main__':
@@ -32,5 +38,6 @@ if __name__ == '__main__':
     x_f = torch.randn(64, 3, 64, 64)
     x_p = torch.randn(64, 3, 64, 64)
     model = MLHFA(pretrain=True)
-    # 省略具体调用
-    pass
+    output = model(x_f, x_p)
+    print(output.shape)
+    print(model)
